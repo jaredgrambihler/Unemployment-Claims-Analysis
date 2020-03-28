@@ -13,6 +13,6 @@ Data, ICNSA.csv, comes from the Federal Reserve Bank of St. Louis, and the curre
 Output graphs appear as follows:
 
 By Week:
-![](https://imgur.com/a/7fnJYa0)
+![](https://imgur.com/BmfYVZP)
 By Month:
 ![](https://imgur.com/bHvvB3o)
