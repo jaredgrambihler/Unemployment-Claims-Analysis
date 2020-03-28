@@ -12,7 +12,7 @@ The script aggregates the unemployment data by month. The reasoning behind this 
 Data, ICNSA.csv, comes from the Federal Reserve Bank of St. Louis, and the current data can be found here: https://fred.stlouisfed.org/series/ICSA
 
 Output graphs appear as follows:\
-**By Week:**\
+**By Week:**
 ![](https://i.imgur.com/BmfYVZP.png)\
-**By Month:**\
+**By Month:**
 ![](https://i.imgur.com/bHvvB3o.png)
