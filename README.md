@@ -9,7 +9,7 @@ Dependencies:
 Created in light of recent unemployment spike to compare it to historical data.
 The script aggregates the unemployment data by month. The reasoning behind this was to compare the recent one week spike with similar trends that may have occured over several months in previous recessions.
 
-Data, ICNSA.csv, comes from the Federal Reserve Bank of St. Louis, and the current data can be found here: https://fred.stlouisfed.org/series/ICSA
+Data, ICNSA.csv, comes from the Federal Reserve Bank of St. Louis, and the current data can be found here: https://fred.stlouisfed.org/series/ICNSA
 
 Output graphs appear as follows:\
 **By Week:**\
