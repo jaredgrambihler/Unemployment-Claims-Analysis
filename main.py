@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
 import datetime
 
 class Claim:
@@ -37,6 +36,23 @@ def parse(fname):
     f.close()
     return claims
 
+def aggregateData(claims, getAttr):
+    """
+    Helper function for byMonth and byYear
+    Aggregates claim data by specified attribute dataFunc
+    Args:
+        claims: list of Claim object. Must be sorted in ascending order. Modifies this list
+        getAttr (lambda function): returns the data attribute to be aggregate by (e.g. year, month)
+            for a given Claims object
+    """
+    i = 0
+    while(i < len(claims)-1):
+        if getAttr(claims[i]) == getAttr(claims[i+1]):
+            claims[i].claims += claims[i+1].claims
+            claims.remove(claims[i+1])
+        else:
+            i += 1
+
 def byMonth(claims):
     """
     Aggregates claim data by month
@@ -44,24 +60,44 @@ def byMonth(claims):
         claims: list of Claim objects. Must be sorted in ascending order.
             Modifies this list.
     """
-    i = 0
-    while(i < len(claims)-1):
-        if claims[i].date.month == claims[i+1].date.month:
-            claims[i].claims += claims[i+1].claims
-            claims.remove(claims[i+1])
-        else:
-            i += 1
+    aggregateData(claims, lambda claim: claim.date.month)
+
 
 def byYear(claims):
-    pass
+    """
+    Aggregates claim data by year
+    Args:
+        claims: list of Claim object. Must be sorted in ascending order
+            Modifies this list
+    """
+    aggregateData(claims, lambda claim: claim.date.year)
 
-def main():
-    claimsList = parse("ICNSA.csv")
-    byMonth(claimsList)
+
+def saveGraph(claimsList, title):
+    """
+    Plots and saves a graph for the data to local directory
+    Args:
+        claimsList: list of Claims objects to be displayed on graph
+        title: String of graph title. Graph is save as title.png
+    """
+    plt.cla() #ensure graph is clean before working with it
     dates = [claim.date for claim in claimsList]
     claimNumbers = [claim.claims for claim in claimsList]
     plt.plot(dates, claimNumbers)
+    plt.title(title)
     plt.xticks(rotation=90)
-    plt.show()
+    plt.savefig(title)
+    plt.cla() #clean up graph
+
+def main():
+    claimsList = parse("ICNSA.csv") #loads in data
+    #plot weekly data
+    saveGraph(claimsList, "Weekly Unemployment Data")
+    #aggregate by month and plot monthly data
+    byMonth(claimsList)
+    saveGraph(claimsList, "Monthly Unemployment Data")
+    #aggregate by year and plot yearly data
+    byYear(claimsList)
+    saveGraph(claimsList, "Yearly Unemployment Data")
 
 main()
